@@ -69,19 +69,10 @@ app.get("/populated", (req, res) => {
 
 app.put("/exercise/:id", (req, res) => {
   //db.exercise...... call to db and update where exercise id matches req.body.id
-  //app.post("/submit", ({ body }, res) => {
-  //  const user = new User(body);
-   // user.coolifier();
-   // user.makeCool();
   
-   // User.create(user)
-   //   .then(dbUser => {
-   //     res.json(dbUser);
-   //   })
-   //   .catch(err => {
-   //     res.json(err);
-   //   });
- // });
+    db.Exercise.updateOne({ _id: req.params.id }, { rating: req.body.rating }).then(function(dbExercise) {
+      res.json(dbExercise);
+    });
 
 });
 
