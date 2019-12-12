@@ -7,6 +7,6 @@ const BookSchema = new Schema({
   title: String
 });
 
-const Book = mongoose.model("Book", BookSchema);
+const Exercise = mongoose.model("Exercise", BookSchema);
 
-module.exports = Book;
+module.exports = Exercise;

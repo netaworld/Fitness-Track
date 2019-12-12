@@ -17,39 +17,39 @@ app.use(express.static("public"));
 
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/populate", { useNewUrlParser: true });
 
-db.Library.create({ name: "Campus Library" })
-  .then(dbLibrary => {
-    console.log(dbLibrary);
+db.Workout.create({ name: "Fitness Workout" })
+  .then(dbWorkout => {
+    console.log(dbWorkout);
   })
   .catch(({message}) => {
     console.log(message);
   });
 
 app.post("/submit", ({body}, res) => {
-  db.Book.create(body)
-    .then(({_id}) => db.Library.findOneAndUpdate({}, { $push: { books: _id } }, { new: true }))
-    .then(dbLibrary => {
-      res.json(dbLibrary);
+  db.Exercise.create(body)
+    .then(({_id}) => db.Workout.findOneAndUpdate({}, { $push: { exercises: _id } }, { new: true }))
+    .then(dbWorkout => {
+      res.json(dbWorkout);
     })
     .catch(err => {
       res.json(err);
     });
 });
 
-app.get("/books", (req, res) => {
-  db.Book.find({})
-    .then(dbBook => {
-      res.json(dbBook);
+app.get("/exercises", (req, res) => {
+  db.Exercise.find({})
+    .then(dbExercise => {
+      res.json(dbExercise);
     })
     .catch(err => {
       res.json(err);
     });
 });
 
-app.get("/library", (req, res) => {
-  db.Library.find({})
-    .then(dbLibrary => {
-      res.json(dbLibrary);
+app.get("/workout", (req, res) => {
+  db.Workout.find({})
+    .then(dbWorkout => {
+      res.json(dbWorkout);
     })
     .catch(err => {
       res.json(err);
@@ -57,14 +57,32 @@ app.get("/library", (req, res) => {
 });
 
 app.get("/populated", (req, res) => {
-  db.Library.find({})
-    .populate("books")
-    .then(dbLibrary => {
-      res.json(dbLibrary);
+  db.Workout.find({})
+    .populate("workouts")
+    .then(dbWorkout => {
+      res.json(dbWorkout);
     })
     .catch(err => {
       res.json(err);
     });
+});
+
+app.put("/exercise/:id", (req, res) => {
+  //db.exercise...... call to db and update where exercise id matches req.body.id
+  //app.post("/submit", ({ body }, res) => {
+  //  const user = new User(body);
+   // user.coolifier();
+   // user.makeCool();
+  
+   // User.create(user)
+   //   .then(dbUser => {
+   //     res.json(dbUser);
+   //   })
+   //   .catch(err => {
+   //     res.json(err);
+   //   });
+ // });
+
 });
 
 app.listen(PORT, () => {
