@@ -15,7 +15,7 @@ app.use(express.json());
 
 app.use(express.static("public"));
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/populate", { useNewUrlParser: true });
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/FitnessDB", { useNewUrlParser: true });
 
 db.Workout.create({ name: "Fitness Workout" })
   .then(dbWorkout => {
@@ -46,7 +46,7 @@ app.get("/exercises", (req, res) => {
     });
 });
 
-app.get("/workout", (req, res) => {
+app.get("/workouts", (req, res) => {
   db.Workout.find({})
     .then(dbWorkout => {
       res.json(dbWorkout);

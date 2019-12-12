@@ -7,7 +7,7 @@ const WorkoutSchema = new Schema({
     type: String,
     unique: true
   },
-  books: [
+  exercises: [
     {
       type: Schema.Types.ObjectId,
       ref: "Exercise"
@@ -15,6 +15,6 @@ const WorkoutSchema = new Schema({
   ]
 });
 
-const Workout = mongoose.model("Workout", LibrarySchema);
+const Workout = mongoose.model("Workout", WorkoutSchema);
 
 module.exports = Workout;
